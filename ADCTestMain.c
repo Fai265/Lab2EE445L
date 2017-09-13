@@ -29,6 +29,7 @@
 #include "ADCSWTrigger.h"
 #include "tm4c123gh6pm.h"
 #include "PLL.h"
+#include "BufferFunctions.h"
 
 #define PF2             (*((volatile uint32_t *)0x40025010))
 #define PF1             (*((volatile uint32_t *)0x40025008))
@@ -66,8 +67,6 @@ void Timer0A_Handler(void){
   ADCvalue = ADC0_InSeq3();
 	
 }
-static int ADCTime[] = new int[1000];
-static int ADCData[] = new int[1000];
 int main0(void){
   PLL_Init(Bus80MHz);                   // 80 MHz
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
