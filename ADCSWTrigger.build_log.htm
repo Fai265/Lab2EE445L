@@ -4,6 +4,30 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
-Project File Date:  09/12/2017
+Project File Date:  09/15/2017
 
 <h2>Output:</h2>
+Rebuild target 'ADCSWTrigger'
+assembling startup.s...
+compiling ADCSWTrigger.c...
+compiling ADCTestMain.c...
+ADCTestMain.c(117): warning:  #111-D: statement is unreachable
+        return 1;
+ADCTestMain.c(45): warning:  #550-D: variable "ADCTime" was set but never used
+  static int ADCTime[1000];
+ADCTestMain.c(46): warning:  #550-D: variable "ADCData" was set but never used
+  static int ADCData[1000];
+ADCTestMain.c: 3 warnings, 0 errors
+compiling PLL.c...
+compiling BufferFunctions.c...
+BufferFunctions.c(17): warning:  #550-D: variable "adcRange" was set but never used
+        short adcRange;
+BufferFunctions.c: 1 warning, 0 errors
+linking...
+Program Size: Code=1780 RO-data=32 RW-data=12 ZI-data=9124  
+".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
+Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
