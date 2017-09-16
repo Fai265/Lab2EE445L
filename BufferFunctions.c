@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "C:\Keil1\ValvanoWareTM4C123\ST7735_4C123\ST7735.h"
+#include "ST7735.h"
 
 static short PMFArray[4096];
 

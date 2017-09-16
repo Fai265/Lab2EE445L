@@ -27,7 +27,7 @@
 // top of X-ohm potentiometer connected to +3.3V 
 #include <stdint.h>
 #include "ADCSWTrigger.h"
-#include "../inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include "PLL.h"
 #include "BufferFunctions.h"
 
