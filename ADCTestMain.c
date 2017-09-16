@@ -57,7 +57,7 @@ void Timer0A_Init100HzInt(void){
   TIMER0_CFG_R = 0;                // configure for 32-bit timer mode
   // **** timer0A initialization ****
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD; // configure for periodic mode
-  TIMER0_TAILR_R = 800000;     // start value for 100 Hz interrupts
+  TIMER0_TAILR_R = 80000;     // start value for 1000 Hz interrupts
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 32-b, periodic, interrupts
@@ -66,6 +66,25 @@ void Timer0A_Init100HzInt(void){
   NVIC_PRI4_R = (NVIC_PRI4_R&0x00FFFFFF)|0x40000000; // top 3 bits
   NVIC_EN0_R |= 1<<19;              // enable interrupt 19 in NVIC
 }
+
+void Timer1_Init(void){
+  SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
+	int delay = SYSCTL_RCGCTIMER_R;	// allow time for the Timer to activate
+  TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
+  TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
+  TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
+  TIMER1_TAILR_R = 0xFFFFFFFF;    // 4) reload value
+  TIMER1_TAPR_R = 0;            // 5) bus clock resolution
+  TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
+  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF00FF)|0x00008000; // 8) priority 4
+  // interrupts enabled in the main program after all devices initialized
+  // vector number 37, interrupt number 21
+  NVIC_EN0_R |= 1<<21;           // 9) enable IRQ 21 in NVIC	
+	TIMER1_CTL_R = 0x00000001;
+	startTime = TIMER1_TAR_R;
+  return;
+}
+
 void Timer0A_Handler(void){
 	PF2 ^= 0x04;
 	PF2 ^= 0x04;
@@ -82,28 +101,12 @@ void Timer0A_Handler(void){
 }
 
 
-void Timer1_Init(void){
-  SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
-	int delay = SYSCTL_RCGCTIMER_R;	// allow time for the Timer to activate
-  TIMER1_CTL_R = 0x00000000;    // 1) disable TIMER1A during setup
-  TIMER1_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
-  TIMER1_TAMR_R = 0x00000002;   // 3) configure for periodic mode, default down-count settings
-  TIMER1_TAILR_R = 0xFFFFFFFF;    // 4) reload value
-  TIMER1_TAPR_R = 0;            // 5) bus clock resolution
-  TIMER1_ICR_R = 0x00000001;    // 6) clear TIMER1A timeout flag
-  NVIC_PRI5_R = (NVIC_PRI5_R&0xFFFF00FF)|0x00008000; // 8) priority 4
-// interrupts enabled in the main program after all devices initialized
-// vector number 37, interrupt number 21
-  NVIC_EN0_R |= 1<<21;           // 9) enable IRQ 21 in NVIC	
-	startTime = TIMER1_TAR_R;
-  return;
-}
 
 int main(void){
   PLL_Init(Bus80MHz);                   // 80 MHz
-	Timer1_Init();
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
   ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
+	Timer1_Init();
   Timer0A_Init100HzInt();               // set up Timer0A for 100 Hz interrupts
   GPIO_PORTF_DIR_R |= 0x06;             // make PF2, PF1 out (built-in LED)
   GPIO_PORTF_AFSEL_R &= ~0x06;          // disable alt funct on PF2, PF1
