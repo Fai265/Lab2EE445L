@@ -11,11 +11,11 @@ Rebuild target 'ADCSWTrigger'
 assembling startup.s...
 compiling ADCSWTrigger.c...
 compiling ADCTestMain.c...
-ADCTestMain.c(117): warning:  #111-D: statement is unreachable
+ADCTestMain.c(119): warning:  #111-D: statement is unreachable
         return 1;
-ADCTestMain.c(45): warning:  #550-D: variable "ADCTime" was set but never used
+ADCTestMain.c(46): warning:  #550-D: variable "ADCTime" was set but never used
   static int ADCTime[1000];
-ADCTestMain.c(46): warning:  #550-D: variable "ADCData" was set but never used
+ADCTestMain.c(47): warning:  #550-D: variable "ADCData" was set but never used
   static int ADCData[1000];
 ADCTestMain.c: 3 warnings, 0 errors
 compiling PLL.c...
@@ -24,10 +24,14 @@ BufferFunctions.c(17): warning:  #550-D: variable "adcRange" was set but never u
         short adcRange;
 BufferFunctions.c: 1 warning, 0 errors
 linking...
-Program Size: Code=1780 RO-data=32 RW-data=12 ZI-data=9124  
+Program Size: Code=1892 RO-data=32 RW-data=16 ZI-data=9120  
 ".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
 Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+ 
+_____^
+*** error 56: cannot open file
+Error: Flash Download failed  -  Could not load file 'C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.axf'
