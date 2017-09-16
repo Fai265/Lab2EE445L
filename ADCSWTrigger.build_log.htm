@@ -11,28 +11,42 @@ Rebuild target 'ADCSWTrigger'
 assembling startup.s...
 compiling ADCSWTrigger.c...
 compiling ADCTestMain.c...
-ADCTestMain.c(122): warning:  #111-D: statement is unreachable
+ADCTestMain.c(134): warning:  #111-D: statement is unreachable
         return 1;
-ADCTestMain.c(46): warning:  #550-D: variable "ADCTime" was set but never used
-  static int ADCTime[1000];
-ADCTestMain.c(47): warning:  #550-D: variable "ADCData" was set but never used
-  static int ADCData[1000];
-ADCTestMain.c: 3 warnings, 0 errors
+ADCTestMain.c(48): warning:  #550-D: variable "jitter" was set but never used
+  static short jitter=0;
+ADCTestMain.c: 2 warnings, 0 errors
 compiling PLL.c...
 compiling BufferFunctions.c...
+BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
+          if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
 BufferFunctions.c(17): warning:  #550-D: variable "adcRange" was set but never used
         short adcRange;
-BufferFunctions.c: 1 warning, 0 errors
+BufferFunctions.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=1900 RO-data=32 RW-data=16 ZI-data=9120  
+Program Size: Code=2100 RO-data=32 RW-data=20 ZI-data=17316  
 ".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
 Load "C:\\Users\\Cooper\\Documents\\GitHub\\Lab2EE445L\\ADCSWTrigger.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+-data=9120  
+".\ADCSWTrigger.axf" - 0 Error(s), 6 Warning(s).
 Load "C:\\Users\\Cooper\\Documents\\GitHub\\Lab2EE445L\\ADCSWTrigger.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
+n=PMFArray[i];
+BufferFunctions.c(29): error:  #142: expression must have pointer-to-object type
+        while(PMFArray[i]==0){
+BufferFunctions.c(32): error:  #142: expression must have pointer-to-object type
+        adcMax=PMFArray[i];
+BufferFunctions.c(43): error:  #120: return value type does not match the function type
+    return PMFArray;
+BufferFunctions.c(17): warning:  #550-D: variable "adcRange" was set but never used
+        short adcRange;
+BufferFunctions.c: 1 warning, 6 errors
+".\ADCSWTrigger.axf" - 9 Error(s), 4 Warning(s).
+Target not created
