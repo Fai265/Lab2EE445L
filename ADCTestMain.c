@@ -42,6 +42,7 @@ void WaitForInterrupt(void);  // low power mode
 volatile uint32_t ADCvalue;
 static uint32_t startTime = 0;
 static uint32_t currentTime = 0;
+static uint8_t dataFlag = 0;
 static int index = 0;
 static int ADCTime[1000];
 static int ADCData[1000];
@@ -123,8 +124,7 @@ void Timer0A_Handler(void){
 	}
 	else{
 		DisableInterrupts();
-		jitter=Jitter_Calc(ADCTime);
-		PMF_Create(ADCData,pmf_array);
+		dataFlag = 1;
 	}
 }
 
@@ -152,8 +152,11 @@ int main(void){
   while(1){
     GPIO_PORTF_DATA_R ^= 0x02;
 		//PF1 = (PF1*12345678)/1234567+0x02;
+		if(dataFlag == 1){
+			jitter=Jitter_Calc(ADCTime);
+			PMF_Create(ADCData,pmf_array);
+		}
   }
-	return 1;
 }
 
 

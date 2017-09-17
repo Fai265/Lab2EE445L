@@ -3,33 +3,39 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
-Project File Date:  09/15/2017
+C:\Keil\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
+Project File Date:  09/17/2017
 
 <h2>Output:</h2>
-Build target 'ADCSWTrigger'
+Rebuild target 'ADCSWTrigger'
+assembling startup.s...
+compiling ADCSWTrigger.c...
 compiling ADCTestMain.c...
 ADCTestMain.c(132): warning:  #550-D: variable "delay" was set but never used
         int delay=0;
-ADCTestMain.c(156): warning:  #111-D: statement is unreachable
-        return 1;
-ADCTestMain.c(48): warning:  #550-D: variable "jitter" was set but never used
+ADCTestMain.c(49): warning:  #550-D: variable "jitter" was set but never used
   static short jitter=0;
-ADCTestMain.c: 3 warnings, 0 errors
+ADCTestMain.c: 2 warnings, 0 errors
+compiling PLL.c...
+compiling BufferFunctions.c...
+BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
+          if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
+BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
+        short xDiff = 1000;
+BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
+        short numHatch = 4;
+BufferFunctions.c: 3 warnings, 0 errors
+compiling ST7735.c...
 linking...
-Program Size: Code=2108 RO-data=32 RW-data=20 ZI-data=17316  
-".\ADCSWTrigger.axf" - 0 Error(s), 3 Warning(s).
-Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-
-linking...
-Program Size: Code=2100 RO-data=32 RW-data=20 ZI-data=17316  
-".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
-Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
+Program Size: Code=3112 RO-data=32 RW-data=68 ZI-data=17316  
+".\ADCSWTrigger.axf" - 0 Error(s), 5 Warning(s).
+...
+Program Size: Code=2728 RO-data=32 RW-data=68 ZI-data=17316  
+".\ADCSWTrigger.axf" - 0 Error(s), 6 Warning(s).
+image symbols.
+Finished: 1 information, 0 warning and 1 error messages.
+".\ADCSWTrigger.axf" - 1 Error(s), 6 Warning(s).
+Target not created
+r messages.
+".\ADCSWTrigger.axf" - 1 Error(s), 7 Warning(s).
+Target not created
