@@ -49,6 +49,7 @@ static short jitter=0;
 static short pmf_array[4096];
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
+
 void Timer0A_Init100HzInt(void){
   volatile uint32_t delay;
   DisableInterrupts();
@@ -59,7 +60,7 @@ void Timer0A_Init100HzInt(void){
   TIMER0_CFG_R = 0;                // configure for 32-bit timer mode
   // **** timer0A initialization ****
   TIMER0_TAMR_R = TIMER_TAMR_TAMR_PERIOD; // configure for periodic mode
-  TIMER0_TAILR_R = 80000;     // start value for 1000 Hz interrupts
+  TIMER0_TAILR_R = 79999;     // start value for 1000 Hz interrupts
   TIMER0_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
   TIMER0_ICR_R = TIMER_ICR_TATOCINT;// clear timer0A timeout flag
   TIMER0_CTL_R |= TIMER_CTL_TAEN;  // enable timer0A 32-b, periodic, interrupts
@@ -69,25 +70,6 @@ void Timer0A_Init100HzInt(void){
   NVIC_EN0_R |= 1<<19;              // enable interrupt 19 in NVIC
 }
 
-void Timer2A_Init(void){ //This is for part D of the lab manual 
-  volatile uint32_t delay;
-  DisableInterrupts();
-  // **** general initialization ****
-  SYSCTL_RCGCTIMER_R |= 0x04;      // activate timer
-  delay = SYSCTL_RCGCTIMER_R;      // allow time to finish activating
-  TIMER2_CTL_R &= ~TIMER_CTL_TAEN; // disable timer2A during setup
-  TIMER2_CFG_R = 0;                // configure for 32-bit timer mode
-  // **** timer2 initialization ****
-  TIMER2_TAMR_R = TIMER_TAMR_TAMR_PERIOD; // configure for periodic mode
-  TIMER2_TAILR_R =79800;     // start value for ~1000 Hz interrupts
-  TIMER2_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
-  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer2 timeout flag
-  TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer2 32-b, periodic, interrupts
-  // **** interrupt initialization ****
-                                   // Timer2A=priority 1
-  NVIC_PRI5_R = (NVIC_PRI4_R&0x00FFFFFF)|0x20000000; // top 3 bits
-  NVIC_EN0_R |= 1<<23;              // enable interrupt 19 in NVIC
-}
 
 void Timer1_Init(void){
   SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
@@ -105,6 +87,26 @@ void Timer1_Init(void){
 	TIMER1_CTL_R = 0x00000001;
 	startTime = TIMER1_TAR_R;
   return;
+}
+
+void Timer2A_Init(void){ //This is for part D of the lab manual 
+  volatile uint32_t delay;
+  // **** general initialization ****
+  SYSCTL_RCGCTIMER_R |= 0x04;      // activate timer
+  delay = SYSCTL_RCGCTIMER_R;      // allow time to finish activating
+  TIMER2_CTL_R &= ~TIMER_CTL_TAEN; // disable timer2A during setup
+  TIMER2_CFG_R = 0;                // configure for 32-bit timer mode
+  // **** timer2 initialization ****
+  TIMER2_TAMR_R = TIMER_TAMR_TAMR_PERIOD; // configure for periodic mode
+  TIMER2_TAILR_R =7900;     // start value for ~1000 Hz interrupts
+  TIMER2_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
+  TIMER2_ICR_R = TIMER_ICR_TATOCINT;// clear timer2 timeout flag
+  TIMER2_CTL_R |= TIMER_CTL_TAEN;  // enable timer2 32-b, periodic, interrupts
+  // **** interrupt initialization ****
+                                   // Timer2A=priority 1
+  NVIC_PRI5_R = (NVIC_PRI5_R&0x00FFFFFF)|0x20000000; // top 3 bits
+  NVIC_EN0_R |= 1<<23;              // enable interrupt 19 in NVIC
+	//TIMER2_CTL_R |= 0x00000001; // disable timer2A during setup
 }
 
 void Timer0A_Handler(void){
@@ -129,16 +131,18 @@ void Timer0A_Handler(void){
 }
 
 void Timer2A_Handler(void){
-	int delay=0;
-	delay=23;
+	int delay;
+	delay=TIMER2_TAR_R;
 }
 
 int main(void){
+	int timer2;
   PLL_Init(Bus80MHz);                   // 80 MHz
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
   ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
 	Timer1_Init();												// Sets up Timer1 count for ~53 seconds to time duration in between ADC reads
   Timer0A_Init100HzInt();               // set up Timer0A for 100 Hz interrupts
+	Timer2A_Init();
   GPIO_PORTF_DIR_R |= 0x06;             // make PF2, PF1 out (built-in LED)
   GPIO_PORTF_AFSEL_R &= ~0x06;          // disable alt funct on PF2, PF1
   GPIO_PORTF_DEN_R |= 0x06;             // enable digital I/O on PF2, PF1
@@ -147,9 +151,8 @@ int main(void){
   PF2 = 0;                              // turn off LED
   EnableInterrupts();
 	
-
-		
   while(1){
+		//timer2=TIMER2_TAR_R;
     GPIO_PORTF_DATA_R ^= 0x02;
 		//PF1 = (PF1*12345678)/1234567+0x02;
   }

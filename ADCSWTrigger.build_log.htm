@@ -3,32 +3,37 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
+C:\Users\Cooper\Documents\GitHub\Lab2EE445L\ADCSWTrigger.uvproj
 Project File Date:  09/15/2017
 
 <h2>Output:</h2>
 Build target 'ADCSWTrigger'
 compiling ADCTestMain.c...
-ADCTestMain.c(132): warning:  #550-D: variable "delay" was set but never used
-        int delay=0;
-ADCTestMain.c(156): warning:  #111-D: statement is unreachable
+ADCTestMain.c(134): warning:  #550-D: variable "delay" was set but never used
+        int delay;
+ADCTestMain.c(159): warning:  #111-D: statement is unreachable
         return 1;
+ADCTestMain.c(139): warning:  #177-D: variable "timer2" was declared but never referenced
+        int timer2;
 ADCTestMain.c(48): warning:  #550-D: variable "jitter" was set but never used
   static short jitter=0;
-ADCTestMain.c: 3 warnings, 0 errors
+ADCTestMain.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=2108 RO-data=32 RW-data=20 ZI-data=17316  
-".\ADCSWTrigger.axf" - 0 Error(s), 3 Warning(s).
-Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
+Program Size: Code=2236 RO-data=32 RW-data=20 ZI-data=17316  
+".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
+Load "C:\\Users\\Cooper\\Documents\\GitHub\\Lab2EE445L\\ADCSWTrigger.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
 Verify OK.
 
+" was set but never used
+        short adcRange;
+BufferFunctions.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=2100 RO-data=32 RW-data=20 ZI-data=17316  
-".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
-Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
+Program Size: Code=2116 RO-data=32 RW-data=20 ZI-data=17316  
+".\ADCSWTrigger.axf" - 0 Error(s), 6 Warning(s).
+Load "C:\\Users\\Cooper\\Documents\\GitHub\\Lab2EE445L\\ADCSWTrigger.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.
 Programming Done.
