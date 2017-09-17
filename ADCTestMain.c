@@ -69,6 +69,26 @@ void Timer0A_Init100HzInt(void){
   NVIC_EN0_R |= 1<<19;              // enable interrupt 19 in NVIC
 }
 
+void Timer2A_Init(void){ //This is for part D of the lab manual 
+  volatile uint32_t delay;
+  DisableInterrupts();
+  // **** general initialization ****
+  SYSCTL_RCGCTIMER_R |= 0x04;      // activate timer
+  delay = SYSCTL_RCGCTIMER_R;      // allow time to finish activating
+  TIMER2_CTL_R &= ~TIMER_CTL_TAEN; // disable timer2A during setup
+  TIMER2_CFG_R = 0;                // configure for 32-bit timer mode
+  // **** timer2 initialization ****
+  TIMER2_TAMR_R = TIMER_TAMR_TAMR_PERIOD; // configure for periodic mode
+  TIMER2_TAILR_R =79800;     // start value for ~1000 Hz interrupts
+  TIMER2_IMR_R |= TIMER_IMR_TATOIM;// enable timeout (rollover) interrupt
+  TIMER1_ICR_R = TIMER_ICR_TATOCINT;// clear timer2 timeout flag
+  TIMER1_CTL_R |= TIMER_CTL_TAEN;  // enable timer2 32-b, periodic, interrupts
+  // **** interrupt initialization ****
+                                   // Timer2A=priority 1
+  NVIC_PRI5_R = (NVIC_PRI4_R&0x00FFFFFF)|0x20000000; // top 3 bits
+  NVIC_EN0_R |= 1<<23;              // enable interrupt 19 in NVIC
+}
+
 void Timer1_Init(void){
   SYSCTL_RCGCTIMER_R |= 0x02;   // 0) activate TIMER1
 	int delay = SYSCTL_RCGCTIMER_R;	// allow time for the Timer to activate
@@ -100,17 +120,18 @@ void Timer0A_Handler(void){
 		ADCTime[index] = (startTime - currentTime);
 		startTime=currentTime;
 		index++;
-		
 	}
 	else{
 		DisableInterrupts();
 		jitter=Jitter_Calc(ADCTime);
 		PMF_Create(ADCData,pmf_array);
-	
 	}
 }
 
-
+void Timer2A_Handler(void){
+	int delay=0;
+	delay=23;
+}
 
 int main(void){
   PLL_Init(Bus80MHz);                   // 80 MHz
@@ -130,6 +151,7 @@ int main(void){
 		
   while(1){
     GPIO_PORTF_DATA_R ^= 0x02;
+		//PF1 = (PF1*12345678)/1234567+0x02;
   }
 	return 1;
 }
