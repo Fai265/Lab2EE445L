@@ -1,10 +1,10 @@
 #include <stdint.h>
-#include "ST7735.h"
+#include "ST7735.c"
 
-//static short PMFArray[4096];
+//static int PMFArray[4096];
 
-short Jitter_Calc(int* ADCTime){ //can edit input parameter if we move buffer back to main
-	short maxDiff=0;
+int Jitter_Calc(int* ADCTime){ //can edit input parameter if we move buffer back to main
+	int maxDiff=0;
   for(int i=0;i<999;i++){
 	  if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
 		  maxDiff=abs(ADCTime[i]-ADCTime[i+1]);
@@ -13,19 +13,24 @@ short Jitter_Calc(int* ADCTime){ //can edit input parameter if we move buffer ba
 	return maxDiff;
 }
 
-short* PMF_Create(int* ADCData, short* PMFArray){
-	short adcRange;
-	short xDiff = 1000;
+int* PMF_Create(int* ADCData, int* PMFArray){
+	int adcRange;
+	int xDiff = 1000;
 	uint32_t maxCount = 0;
-	short numHatch = 4;
-	short adcMin;
-	short adcMax;
-  for(int i=0;i<1000;i++){
-		PMFArray[ADCData[i]]+=1;
-		if(PMFArray[ADCData[i]] > maxCount){
+	int numHatch = 4;
+	int adcMin;
+	int adcMax;
+
+  //for(int i=0;i<1000;i++){
+  for(int i=0;i<4096;i++){
+		//PMFArray[ADCData[i]]++;
+		//if(PMFArray[ADCData[i]] > maxCount){
+		if(PMFArray[i] > maxCount){
 			maxCount = PMFArray[ADCData[i]];
+			maxCount=PMFArray[i];
 		}
   }
+
 	int i=0;
 	while(PMFArray[i]==0 && i < 4096){
 		i++;
@@ -50,10 +55,21 @@ short* PMF_Create(int* ADCData, short* PMFArray){
 		}
 	}
 	*/
-	short pmfDisplayArray[160];
-	if(adcRange >= 160){
-		short offset = adcRange/160;
-		short k = 0;
+	char max[5];
+	char min[5];
+  sprintf(max,"%d",adcMax);
+	sprintf(min,"%d",adcMin);
+	int pmfDisplayArray[130];
+	ST7735_OutString("0x sampling\n\n");
+	ST7735_OutString("Range: ");
+	ST7735_OutString(min);
+	ST7735_OutString(" to ");
+	ST7735_OutString(max);
+	ST7735_PlotClear(0, maxCount);
+	
+	if(adcRange>=130){
+		int offset = adcRange/130;
+		int k = 0;
 		for(int i = adcMin; i <= adcMax; i += offset){
 			for(int j = 0; j < offset; j++){
 				pmfDisplayArray[k] += PMFArray[i+j];
@@ -63,17 +79,16 @@ short* PMF_Create(int* ADCData, short* PMFArray){
 			}
 			k++;
 		}
-		ST7735_PlotClear(0, maxCount);
-		for(int i = 0; i < 160; i++){
+		for(int i = 0; i < 130; i++){
 			ST7735_PlotBar(pmfDisplayArray[i]);
 			ST7735_PlotNext();
+		}
 	}
-	}else{
-		short offset = 160/adcRange;
-		ST7735_PlotClear(0, maxCount);
-		for(int i = adcMin; i < adcMax; i++){
+	else{
+		int offset = 130/adcRange;
+		for(int i = adcMin; i <= adcMax; i++){
 			ST7735_PlotBar(PMFArray[i]);
-			for(int j = 0; j < offset; j++){
+			for(int j = 0; j <offset; j++){
 				ST7735_PlotNext();
 			}
 		}
@@ -86,7 +101,7 @@ short* PMF_Create(int* ADCData, short* PMFArray){
   ST7735_PlotClear();
   ST7735_PlotBar();
   ST7735_PlotNext();
-*/
-	
+
+	*/
   return PMFArray;
 }

@@ -30,6 +30,7 @@
 #include "tm4c123gh6pm.h"
 #include "PLL.h"
 #include "BufferFunctions.h"
+#include "ST7735.h"
 
 #define PF2             (*((volatile uint32_t *)0x40025010))
 #define PF1             (*((volatile uint32_t *)0x40025008))
@@ -46,8 +47,8 @@ static uint8_t dataFlag = 0;
 static int index = 0;
 static int ADCTime[1000];
 static int ADCData[1000];
-static short jitter=0;
-static short pmf_array[4096];
+static int jitter=0;
+static int pmf_array[4096]={0};
 // This debug function initializes Timer0A to request interrupts
 // at a 100 Hz frequency.  It is similar to FreqMeasure.c.
 void Timer0A_Init100HzInt(void){
@@ -133,12 +134,16 @@ void Timer2A_Handler(void){
 	delay=23;
 }
 
-int main(void){
+int main1(void){ 												
   PLL_Init(Bus80MHz);                   // 80 MHz
   SYSCTL_RCGCGPIO_R |= 0x20;            // activate port F
-  ADC0_InitSWTriggerSeq3_Ch9();         // allow time to finish activating
+	ADC0_InitSWTriggerSeq3_Ch9(0);				//uses 1 times sampling rate on the ADC
+  //ADC0_InitSWTriggerSeq3_Ch9(2);        //uses 4 times sampling rate on the ADC
+	//ADC0_InitSWTriggerSeq3_Ch9(4);				//uses 16 times sampling rate on the ADC
+	//ADC0_InitSWTriggerSeq3_Ch9(6);				//uses 64 times sampling rate on the ADC
 	Timer1_Init();												// Sets up Timer1 count for ~53 seconds to time duration in between ADC reads
   Timer0A_Init100HzInt();               // set up Timer0A for 100 Hz interrupts
+	//Timer2A_Init();
   GPIO_PORTF_DIR_R |= 0x06;             // make PF2, PF1 out (built-in LED)
   GPIO_PORTF_AFSEL_R &= ~0x06;          // disable alt funct on PF2, PF1
   GPIO_PORTF_DEN_R |= 0x06;             // enable digital I/O on PF2, PF1
@@ -154,11 +159,25 @@ int main(void){
 		//PF1 = (PF1*12345678)/1234567+0x02;
 		if(dataFlag == 1){
 			jitter=Jitter_Calc(ADCTime);
-			PMF_Create(ADCData,pmf_array);
+			//PMF_Create(ADCData,pmf_array);
+			dataFlag++;
 		}
   }
 }
 
+void main(void){
+	PLL_Init(Bus80MHz);                   // 80 MHz
+	ST7735_InitR(INITR_REDTAB);
+	for(int i=2000;i<2050;i++){
+		pmf_array[i]=i-1999;
+	}
+	for(int i=2050;i<2100;i++){
+		pmf_array[i]=(2100-i);
+	}
+	PMF_Create(ADCData, pmf_array);
+}
 
 
+
+	
 

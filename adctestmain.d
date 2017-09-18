@@ -4,3 +4,4 @@
 .\adctestmain.o: tm4c123gh6pm.h
 .\adctestmain.o: PLL.h
 .\adctestmain.o: BufferFunctions.h
+.\adctestmain.o: ST7735.h
