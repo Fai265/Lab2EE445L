@@ -3,61 +3,34 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Cooper\Documents\GitHub\Lab2EE445L\ADCSWTrigger.uvproj
-Project File Date:  09/15/2017
+C:\Keil\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
+Project File Date:  09/17/2017
 
 <h2>Output:</h2>
-Build target 'ADCSWTrigger'
+Rebuild target 'ADCSWTrigger'
+assembling startup.s...
+compiling ADCSWTrigger.c...
+compiling ADCTestMain.c...
+BufferFunctions.h(14): warning:  #1-D: last line of file ends without a newline
+  short* PMF_Create(int* ADCData, int* PMFArray);
+ADCTestMain.c(133): warning:  #550-D: variable "delay" was set but never used
+        int delay=0;
+ADCTestMain.c(168): warning:  #951-D: return type of function "main" must be "int"
+  void main(void){
+ADCTestMain.c(50): warning:  #550-D: variable "jitter" was set but never used
+  static int jitter=0;
+ADCTestMain.c: 4 warnings, 0 errors
+compiling PLL.c...
 compiling BufferFunctions.c...
 BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
           if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
+BufferFunctions.c(89): warning:  #177-D: variable "offset" was declared but never referenced
+                int offset = 128/adcRange;
 BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
         int xDiff = 1000;
 BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
         int numHatch = 4;
-BufferFunctions.c: 3 warnings, 0 errors
+BufferFunctions.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=4364 RO-data=2052 RW-data=68 ZI-data=25508  
-".\ADCSWTrigger.axf" - 0 Error(s), 3 Warning(s).
-</pre>
-</body>
-</html>
-}"
-BufferFunctions.c: 4 warnings, 1 error
-".\ADCSWTrigger.axf" - 1 Error(s), 4 Warning(s).
-Target not created
-Error: Could not load file 'C:\Users\Cooper\Documents\GitHub\Lab2EE445L\ADCSWTrigger.axf'. Debugger aborted !
- 3 warnings, 0 errors
-linking...
-Program Size: Code=2056 RO-data=32 RW-data=24 ZI-data=25504  
-".\ADCSWTrigger.axf" - 0 Error(s), 6 Warning(s).
-erenced
-        int xDiff = 1000;
-BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
-        int numHatch = 4;
-BufferFunctions.c: 3 warnings, 0 errors
-linking...
-Program Size: Code=2056 RO-data=32 RW-data=24 ZI-data=25504  
-".\ADCSWTrigger.axf" - 0 Error(s), 9 Warning(s).
-3 warnings, 0 errors
-".\ADCSWTrigger.axf" - 1 Error(s), 9 Warning(s).
-Target not created
-xDiff" was declared but never referenced
-        int xDiff = 1000;
-BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
-        int numHatch = 4;
-BufferFunctions.c: 3 warnings, 0 errors
-".\ADCSWTrigger.axf" - 3 Error(s), 9 Warning(s).
-Target not created
-ff = 1000;
-BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
-        int numHatch = 4;
-BufferFunctions.c: 9 warnings, 0 errors
-linking...
-.\ADCSWTrigger.axf: Error: L6218E: Undefined symbol ST7735_PlotBar (referred from bufferfunctions.o).
-.\ADCSWTrigger.axf: Error: L6218E: Undefined symbol ST7735_PlotClear (referred from bufferfunctions.o).
-.\ADCSWTrigger.axf: Error: L6218E: Undefined symbol ST7735_PlotNext (referred from bufferfunctions.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 3 error messages.
-".\ADCSWTrigger.axf" - 3 Error(s), 13 Warning(s).
-Target not created
+Program Size: Code=4360 RO-data=2052 RW-data=68 ZI-data=25508  
+".\ADCSWTrigger.axf" - 0 Error(s), 8 Warning(s).

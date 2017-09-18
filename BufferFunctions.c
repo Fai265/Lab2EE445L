@@ -59,7 +59,7 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 	char min[5];
   sprintf(max,"%d",adcMax);
 	sprintf(min,"%d",adcMin);
-	int pmfDisplayArray[130];
+	int pmfDisplayArray[128];
 	ST7735_OutString("0x sampling\n\n");
 	ST7735_OutString("Range: ");
 	ST7735_OutString(min);
@@ -67,30 +67,29 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 	ST7735_OutString(max);
 	ST7735_PlotClear(0, maxCount);
 	
-	if(adcRange>=130){
-		int offset = adcRange/130;
-		int k = 0;
-		for(int i = adcMin; i <= adcMax; i += offset){
-			for(int j = 0; j < offset; j++){
-				pmfDisplayArray[k] += PMFArray[i+j];
+	if(adcRange>=128){
+		for(int i = adcMin; i <= adcMax; i += 2){
+			pmfDisplayArray[i] = PMFArray[i] + PMFArray[i+1];
+			if(adcRange >= 256){
+				pmfDisplayArray[i] += PMFArray[i+2] + PMFArray[i+3];
 			}
-			if(pmfDisplayArray[k] > maxCount){
-				maxCount = pmfDisplayArray[k];
+			if(pmfDisplayArray[i] > maxCount){
+				maxCount = pmfDisplayArray[i];
 			}
-			k++;
+			if(adcRange >= 256){
+				i += 2;
+			}
 		}
-		for(int i = 0; i < 130; i++){
+		for(int i = 0; i < 128; i++){
 			ST7735_PlotBar(pmfDisplayArray[i]);
 			ST7735_PlotNext();
 		}
 	}
 	else{
-		int offset = 130/adcRange;
+		int offset = 128/adcRange;
 		for(int i = adcMin; i <= adcMax; i++){
 			ST7735_PlotBar(PMFArray[i]);
-			for(int j = 0; j <offset; j++){
-				ST7735_PlotNext();
-			}
+			ST7735_PlotNext();
 		}
 	}
 	
