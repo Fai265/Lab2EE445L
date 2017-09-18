@@ -3,28 +3,15 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Keil\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
-Project File Date:  09/17/2017
+C:\Users\Cooper\Documents\GitHub\Lab2EE445L2\ADCSWTrigger.uvproj
+Project File Date:  09/18/2017
 
 <h2>Output:</h2>
-Rebuild target 'ADCSWTrigger'
-assembling startup.s...
-compiling ADCSWTrigger.c...
-compiling ADCTestMain.c...
-BufferFunctions.h(14): warning:  #1-D: last line of file ends without a newline
-  short* PMF_Create(int* ADCData, int* PMFArray);
-ADCTestMain.c(133): warning:  #550-D: variable "delay" was set but never used
-        int delay=0;
-ADCTestMain.c(168): warning:  #951-D: return type of function "main" must be "int"
-  void main(void){
-ADCTestMain.c(50): warning:  #550-D: variable "jitter" was set but never used
-  static int jitter=0;
-ADCTestMain.c: 4 warnings, 0 errors
-compiling PLL.c...
+Build target 'ADCSWTrigger'
 compiling BufferFunctions.c...
 BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
           if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
-BufferFunctions.c(89): warning:  #177-D: variable "offset" was declared but never referenced
+BufferFunctions.c(101): warning:  #177-D: variable "offset" was declared but never referenced
                 int offset = 128/adcRange;
 BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
         int xDiff = 1000;
@@ -32,5 +19,20 @@ BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but ne
         int numHatch = 4;
 BufferFunctions.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=4360 RO-data=2052 RW-data=68 ZI-data=25508  
+Program Size: Code=4512 RO-data=2052 RW-data=68 ZI-data=25508  
+".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
+</pre>
+</body>
+</html>
+rror(s), 4 Warning(s).
+Target not created
+lared but never referenced
+                int offset = 128/adcRange;
+BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
+        int xDiff = 1000;
+BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
+        int numHatch = 4;
+BufferFunctions.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=4396 RO-data=2052 RW-data=68 ZI-data=25508  
 ".\ADCSWTrigger.axf" - 0 Error(s), 8 Warning(s).

@@ -57,15 +57,7 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 	*/
 	char max[5];
 	char min[5];
-  sprintf(max,"%d",adcMax);
-	sprintf(min,"%d",adcMin);
 	int pmfDisplayArray[128];
-	ST7735_OutString("0x sampling\n\n");
-	ST7735_OutString("Range: ");
-	ST7735_OutString(min);
-	ST7735_OutString(" to ");
-	ST7735_OutString(max);
-	ST7735_PlotClear(0, maxCount);
 	
 	if(adcRange>=128){
 		short upperLimit = 256;
@@ -73,24 +65,39 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 			upperLimit = 512;
 		}
 		for(int i = 0; i < upperLimit; i += 2){
-			pmfDisplayArray[i] = PMFArray[i+adcMin] + PMFArray[i+adcMin+1];
+			pmfDisplayArray[i/(2*(upperLimit/256))] = PMFArray[i+adcMin] + PMFArray[i+adcMin+1]; //(2*(upperLimit/256)) for when dividing by 4
 			if(adcRange >= 256){
-				pmfDisplayArray[i] += PMFArray[i+adcMin+2] + PMFArray[i+adcMin+3];
+				pmfDisplayArray[i/4] += PMFArray[i+adcMin+2] + PMFArray[i+adcMin+3];
 			}
-			if(pmfDisplayArray[i] > maxCount){
-				maxCount = pmfDisplayArray[i];
+			if(pmfDisplayArray[i/(2*(upperLimit/256))] > maxCount){
+				maxCount = pmfDisplayArray[i/(2*(upperLimit/256))];
 			}
 			if(adcRange >= 256){
 				i += 2;
 			}
 		}
 		ST7735_PlotClear(0, maxCount);
+		sprintf(max,"%d",adcMin+upperLimit);
+	  sprintf(min,"%d",adcMin);
+		ST7735_OutString("0x sampling\n\n");
+		ST7735_OutString("Range: ");
+		ST7735_OutString(min);
+		ST7735_OutString(" to ");
+		ST7735_OutString(max);
 		for(int i = 0; i < 128; i++){
 			ST7735_PlotBar(pmfDisplayArray[i]);
 			ST7735_PlotNext();
 		}
 	}
 	else{
+		ST7735_PlotClear(0, maxCount);
+		sprintf(max,"%d",adcMin+128);
+	  sprintf(min,"%d",adcMin);
+		ST7735_OutString("0x sampling\n\n");
+		ST7735_OutString("Range: ");
+		ST7735_OutString(min);
+		ST7735_OutString(" to ");
+		ST7735_OutString(max);
 		int offset = 128/adcRange;
 		for(int i = adcMin; i <= adcMax; i++){
 			ST7735_PlotBar(PMFArray[i]);

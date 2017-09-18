@@ -171,8 +171,8 @@ void main(void){
 	for(int i=2000;i<2050;i++){
 		pmf_array[i]=i-1999;
 	}
-	for(int i=2050;i<2100;i++){
-		pmf_array[i]=(2100-i);
+	for(int i=2050;i<2500;i++){
+		pmf_array[i]=(2500-i);
 	}
 	PMF_Create(ADCData, pmf_array);
 }
