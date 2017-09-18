@@ -68,10 +68,14 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 	ST7735_PlotClear(0, maxCount);
 	
 	if(adcRange>=128){
-		for(int i = adcMin; i <= adcMax; i += 2){
-			pmfDisplayArray[i] = PMFArray[i] + PMFArray[i+1];
+		short upperLimit = 256;
+		if(adcRange > 256){
+			upperLimit = 512;
+		}
+		for(int i = 0; i < upperLimit; i += 2){
+			pmfDisplayArray[i] = PMFArray[i+adcMin] + PMFArray[i+adcMin+1];
 			if(adcRange >= 256){
-				pmfDisplayArray[i] += PMFArray[i+2] + PMFArray[i+3];
+				pmfDisplayArray[i] += PMFArray[i+adcMin+2] + PMFArray[i+adcMin+3];
 			}
 			if(pmfDisplayArray[i] > maxCount){
 				maxCount = pmfDisplayArray[i];
@@ -80,6 +84,7 @@ int* PMF_Create(int* ADCData, int* PMFArray){
 				i += 2;
 			}
 		}
+		ST7735_PlotClear(0, maxCount);
 		for(int i = 0; i < 128; i++){
 			ST7735_PlotBar(pmfDisplayArray[i]);
 			ST7735_PlotNext();
