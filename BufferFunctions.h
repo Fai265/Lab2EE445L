@@ -11,4 +11,4 @@ short Jitter_Calc(int* ADCTime);
 // This function takes in a data array and creates a histogram out of it
 // Returns a pointer to an array of size 4096 with each
 // memory address in the array functioning as 
-short* PMF_Create(int* ADCData, int* PMFArray);
+int* PMF_Create(int* ADCData, int* PMFArray, int sampleRate);

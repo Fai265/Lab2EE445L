@@ -3,36 +3,45 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
-C:\Users\Cooper\Documents\GitHub\Lab2EE445L2\ADCSWTrigger.uvproj
+C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
 Project File Date:  09/18/2017
 
 <h2>Output:</h2>
-Build target 'ADCSWTrigger'
+Rebuild target 'ADCSWTrigger'
+assembling startup.s...
+compiling ADCSWTrigger.c...
+compiling ADCTestMain.c...
+BufferFunctions.h(14): warning:  #1-D: last line of file ends without a newline
+  int* PMF_Create(int* ADCData, int* PMFArray, int sampleRate);
+Switches and LEDs.h(10): warning:  #1-D: last line of file ends without a newline
+  void PF4Switch_Init();
+Switches and LEDs.h(10): warning:  #1295-D: Deprecated declaration PF4Switch_Init - give arg types
+  void PF4Switch_Init();
+ADCTestMain.c(138): warning:  #550-D: variable "delay" was set but never used
+        int delay=0;
+ADCTestMain.c(53): warning:  #550-D: variable "jitter" was set but never used
+  static int jitter=0;
+ADCTestMain.c: 5 warnings, 0 errors
+compiling PLL.c...
 compiling BufferFunctions.c...
 BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
           if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
-BufferFunctions.c(101): warning:  #177-D: variable "offset" was declared but never referenced
+BufferFunctions.c(121): warning:  #177-D: variable "offset" was declared but never referenced
                 int offset = 128/adcRange;
-BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
+BufferFunctions.c(23): warning:  #177-D: variable "xDiff" was declared but never referenced
         int xDiff = 1000;
-BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
+BufferFunctions.c(25): warning:  #177-D: variable "numHatch" was declared but never referenced
         int numHatch = 4;
 BufferFunctions.c: 4 warnings, 0 errors
+compiling Switches and LEDs.c...
+Switches and LEDs.c(36): warning:  #1-D: last line of file ends without a newline
+        }
+Switches and LEDs.c: 1 warning, 0 errors
 linking...
-Program Size: Code=4512 RO-data=2052 RW-data=68 ZI-data=25508  
-".\ADCSWTrigger.axf" - 0 Error(s), 4 Warning(s).
-</pre>
-</body>
-</html>
-rror(s), 4 Warning(s).
-Target not created
-lared but never referenced
-                int offset = 128/adcRange;
-BufferFunctions.c(18): warning:  #177-D: variable "xDiff" was declared but never referenced
-        int xDiff = 1000;
-BufferFunctions.c(20): warning:  #177-D: variable "numHatch" was declared but never referenced
-        int numHatch = 4;
-BufferFunctions.c: 4 warnings, 0 errors
-linking...
-Program Size: Code=4396 RO-data=2052 RW-data=68 ZI-data=25508  
-".\ADCSWTrigger.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=5680 RO-data=2052 RW-data=68 ZI-data=25508  
+".\ADCSWTrigger.axf" - 0 Error(s), 10 Warning(s).
+Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
