@@ -17,7 +17,7 @@ int* PMF_Create(int* ADCData, int* PMFArray, int sampleRate){
 	ST7735_SetCursor(0, 0);
 	int sampling = 1;
 	for(int i = 0; i < sampleRate; i++){
-		sampling *= 4;
+		sampling *= 2;
 	}
 	int adcRange;
 	int xDiff = 1000;
@@ -125,14 +125,6 @@ int* PMF_Create(int* ADCData, int* PMFArray, int sampleRate){
 		}
 	}
 	
-/*
-	ST7735_SetCursor();
-  ST7735_OutUDec();
-  ST7735_OutString();
-  ST7735_PlotClear();
-  ST7735_PlotBar();
-  ST7735_PlotNext();
 
-	*/
   return PMFArray;
 }

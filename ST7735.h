@@ -455,4 +455,8 @@ void Output_On(void);
 // Output: none
 void Output_Color(uint32_t newColor);
 
+// draws a line between any two given points on the
+// screen in the color specified
+void ST7735_Line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color);
+
 #endif

@@ -55,6 +55,7 @@
 // SS3 triggering event: software trigger
 // SS3 1st sample source: Ain9 (PE4)
 // SS3 interrupts: enabled but not promoted to controller
+// sampling chooses the hardware averaging rate
 void ADC0_InitSWTriggerSeq3_Ch9(uint32_t sampling);
 
 

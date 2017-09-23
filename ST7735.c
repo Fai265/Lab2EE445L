@@ -1610,3 +1610,90 @@ void Output_On(void){ // Turns on the display
 void Output_Color(uint32_t newColor){ // Set color of future output
   ST7735_SetTextColor(newColor);
 }
+
+//************* ST7735_Line********************************************
+//  Draws one line on the ST7735 color LCD
+//  Inputs: (x1,y1) is the start point
+//          (x2,y2) is the end point
+// x1,x2 are horizontal positions, columns from the left edge
+//               must be less than 128
+//               0 is on the left, 126 is near the right
+// y1,y2 are vertical positions, rows from the top edge
+//               must be less than 160
+//               159 is near the wires, 0 is the side opposite the wires
+//        color 16-bit color, which can be produced by ST7735_Color565() 
+// Output: none
+
+void ST7735_Line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color){
+    if(x1 < 128 && x2 < 128 && y1 < 160 && y2 < 160){
+			if(x1 == x2){	//indicates a vertical line
+				int y = 0;	//value for lesser y
+				int h = 0;	//value for height
+				if(y1 < y2){
+					y = y1;
+					h = y2 - y1;
+				}
+				else{
+					y = y2;
+					h = y1 - y2;
+				}
+				ST7735_DrawFastVLine(x1, y, h, color);
+			}
+			else{
+				if(y1 == y2){	//indicates a horizontal line
+					int x = 0;	//value for lesser x
+					int w = 0;	//value for width
+					if(x1 < x2){
+						x = x1;
+						w = x2 - x1;
+					}
+					else{
+						x = x2;
+						w = x1 - x2;
+					}
+					ST7735_DrawFastHLine(x, y1, w, color);
+				}
+			else{	     //neither horizontal nor vertical, must use a different method
+			  int h = abs(y2 - y1);
+			  int w = abs(x2 - x1);
+				int x = 0;
+				int y = 0;
+				if(x1 > x2){
+					x = x2;
+				}
+				else{
+				  x = x1;
+				}
+				if(y1 > y2){
+					y = y1;
+				}
+				else{
+					y = y2;
+				}
+			  if(h == w){
+					for(int i = 0; i < h; i++){
+						ST7735_DrawPixel((x+i), (y-i), color); 
+					}
+				}
+				else{
+					if(h > w){
+					  int slope = h / w;
+					  for(int i = 0; i < w; i++){
+						  for(int j = 0; j < slope; j++){
+								ST7735_DrawFastVLine((x+i), (y - (i * slope)), slope, color);
+							}
+						}
+					}
+					else{
+						int slope = w / h;
+						for(int i = 0; i < h; i++){
+							for(int j = 0; j < slope; j++){
+								ST7735_DrawFastHLine((x + (i * slope)), (y - i), slope, color);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+ }

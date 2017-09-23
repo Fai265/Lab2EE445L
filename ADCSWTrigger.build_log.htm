@@ -4,26 +4,26 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\Cooper\Documents\EE445L\Lab2EE445L\ADCSWTrigger.uvproj
-Project File Date:  09/18/2017
+Project File Date:  09/21/2017
 
 <h2>Output:</h2>
 Rebuild target 'ADCSWTrigger'
 assembling startup.s...
 compiling ADCSWTrigger.c...
 compiling ADCTestMain.c...
-BufferFunctions.h(14): warning:  #1-D: last line of file ends without a newline
+BufferFunctions.h(13): warning:  #1-D: last line of file ends without a newline
   int* PMF_Create(int* ADCData, int* PMFArray, int sampleRate);
 Switches and LEDs.h(10): warning:  #1-D: last line of file ends without a newline
   void PF4Switch_Init();
 Switches and LEDs.h(10): warning:  #1295-D: Deprecated declaration PF4Switch_Init - give arg types
   void PF4Switch_Init();
-ADCTestMain.c(138): warning:  #550-D: variable "delay" was set but never used
-        int delay=0;
 ADCTestMain.c(53): warning:  #550-D: variable "jitter" was set but never used
   static int jitter=0;
-ADCTestMain.c: 5 warnings, 0 errors
+ADCTestMain.c: 4 warnings, 0 errors
 compiling PLL.c...
 compiling BufferFunctions.c...
+ST7735.c(1657): warning:  #223-D: function "abs" declared implicitly
+                          int h = abs(y2 - y1);
 BufferFunctions.c(9): warning:  #223-D: function "abs" declared implicitly
           if(abs(ADCTime[i]-ADCTime[i+1])>maxDiff){
 BufferFunctions.c(121): warning:  #177-D: variable "offset" was declared but never referenced
@@ -32,16 +32,117 @@ BufferFunctions.c(23): warning:  #177-D: variable "xDiff" was declared but never
         int xDiff = 1000;
 BufferFunctions.c(25): warning:  #177-D: variable "numHatch" was declared but never referenced
         int numHatch = 4;
-BufferFunctions.c: 4 warnings, 0 errors
-compiling Switches and LEDs.c...
-Switches and LEDs.c(36): warning:  #1-D: last line of file ends without a newline
-        }
-Switches and LEDs.c: 1 warning, 0 errors
+BufferFunctions.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=5680 RO-data=2052 RW-data=68 ZI-data=25508  
-".\ADCSWTrigger.axf" - 0 Error(s), 10 Warning(s).
-Load "C:\\Users\\Cooper\\Documents\\EE445L\\Lab2EE445L\\ADCSWTrigger.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
+Program Size: Code=5404 RO-data=2052 RW-data=68 ZI-data=25508  
+".\ADCSWTrigger.axf" - 0 Error(s), 9 Warning(s).
+nced
+  static int pmf_array[4096]={0};
+ADCTestMain.c(161): error:  #169: expected a declaration
+  }
+ADCTestMain.c(165): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
+ADCTestMain.c: 12 warnings, 2 errors
+compiling PLL.c...
+compiling BufferFunctions.c...
+ST7735.c(511): error:  #65: expected a ";"
+  void static writecommand(uint8_t c) {
+ST7735.c(604): warning:  #12-D: parsing restarts here after previous syntax error
+ST7735.c(98): warning:  #177-D: variable "StX" was declared but never referenced
+  uint32_t StX=0; // position along the horizonal axis 0 to 20
+ST7735.c(99): warning:  #177-D: variable "StY" was declared but never referenced
+  uint32_t StY=0; // position along the vertical axis 0 to 15
+ST7735.c(100): warning:  #177-D: variable "StTextColor" was declared but never referenced
+  uint16_t StTextColor = ST7735_YELLOW;
+ST7735.c(228): warning:  #177-D: variable "Font" was declared but never referenced
+  static const uint8_t Font[] = {
+ST7735.c(487): warning:  #177-D: variable "ColStart" was declared but never referenced
+  static uint8_t ColStart, RowStart; // some displays need this changed
+ST7735.c(487): warning:  #177-D: variable "RowStart" was declared but never referenced
+  static uint8_t ColStart, RowStart; // some displays need this changed
+ST7735.c(488): warning:  #177-D: variable "Rotation" was declared but never referenced
+  static uint8_t Rotation;           // 0 to 3
+ST7735.c(489): warning:  #177-D: variable "TabColor" was declared but never referenced
+  static enum initRFlags TabColor;
+ST7735.c(490): warning:  #177-D: variable "_width" was declared but never referenced
+  static int16_t _width = ST7735_TFTWIDTH;   // this could probably be a constant, except it is used in Adafruit_GFX and depends on image rotation
+ST7735.c(491): warning:  #177-D: variable "_height" was declared but never referenced
+  static int16_t _height = ST7735_TFTHEIGHT;
+ST7735.c(693): warning:  #223-D: function "writedata" declared implicitly
+        writedata(*(addr++));              //     Read, issue argument
+ST7735.c(699): warning:  #223-D: function "Delay1ms" declared implicitly
+        Delay1ms(ms);
+ST7735.c(708): error:  #20: identifier "ColStart" is undefined
+    ColStart  = RowStart = 0; // May be overridden in init func
+ST7735.c(708): error:  #20: identifier "RowStart" is undefined
+    ColStart  = RowStart = 0; // May be overridden in init func
+ST7735.c(724): warning:  #223-D: function "Delay1ms" declared implicitly
+    Delay1ms(500);
+ST7735.c(764): error:  #20: identifier "Bcmd" is undefined
+    commonInit(Bcmd);
+ST7735.c(766): error:  #20: identifier "StTextColor" is undefined
+    StTextColor = ST7735_YELLOW;
+ST7735.c(779): error:  #20: identifier "ColStart" is undefined
+      ColStart = 2;
+ST7735.c(780): error:  #20: identifier "RowStart" is undefined
+      RowStart = 1;
+ST7735.c(790): warning:  #223-D: function "writedata" declared implicitly
+      writedata(0xC0);
+ST7735.c(792): error:  #20: identifier "TabColor" is undefined
+    TabColor = option;
+ST7735.c(794): error:  #20: identifier "StTextColor" is undefined
+    StTextColor = ST7735_YELLOW;
+ST7735.c(806): warning:  #223-D: function "writedata" declared implicitly
+    writedata(0x00);
+ST7735.c(807): error:  #20: identifier "ColStart" is undefined
+    writedata(x0+ColStart);     // XSTART
+ST7735.c(813): error:  #20: identifier "RowStart" is undefined
+    writedata(y0+RowStart);     // YSTART
+ST7735.c(824): warning:  #223-D: function "writedata" declared implicitly
+    writedata((uint8_t)(color >> 8));
+ST7735.c(842): error:  #20: identifier "_width" is undefined
+    if((x < 0) || (x >= _width) || (y < 0) || (y >= _height)) return;
+ST7735.c(842): error:  #20: identifier "_height" is undefined
+    if((x < 0) || (x >= _width) || (y < 0) || (y >= _height)) return;
+ST7735.c(864): error:  #20: identifier "_width" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(864): error:  #20: identifier "_height" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(865): error:  #20: identifier "_height" is undefined
+    if((y+h-1) >= _height) h = _height-y;
+ST7735.c(869): warning:  #223-D: function "writedata" declared implicitly
+      writedata(hi);
+ST7735.c(888): error:  #20: identifier "_width" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(888): error:  #20: identifier "_height" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(889): error:  #20: identifier "_width" is undefined
+    if((x+w-1) >= _width)  w = _width-x;
+ST7735.c(893): warning:  #223-D: function "writedata" declared implicitly
+      writedata(hi);
+ST7735.c(905): error:  #20: identifier "_width" is undefined
+    ST7735_FillRect(0, 0, _width, _height, color);  // original
+ST7735.c(905): error:  #20: identifier "_height" is undefined
+    ST7735_FillRect(0, 0, _width, _height, color);  // original
+ST7735.c(923): error:  #20: identifier "_width" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(923): error:  #20: identifier "_height" is undefined
+    if((x >= _width) || (y >= _height)) return;
+ST7735.c(924): error:  #20: identifier "_width" is undefined
+    if((x + w - 1) >= _width)  w = _width  - x;
+ST7735.c(925): error:  #20: identifier "_height" is undefined
+    if((y + h - 1) >= _height) h = _height - y;
+ST7735.c(931): warning:  #223-D: function "writedata" declared implicitly
+        writedata(hi);
+ST7735.c(983): error:  #20: identifier "_width" is undefined
+    if((x >= _width) || ((y - h + 1) >= _height) || ((x + w) <= 0) || (y < 0)){
+ST7735.c(983): error:  #20: identifier "_height" is undefined
+    if((x >= _width) || ((y - h + 1) >= _height) || ((x + w) <= 0) || (y < 0)){
+ST7735.c(986): error:  #20: identifier "_width" is undefined
+    if((w > _width) || (h > _height)){    // image is too wide for the screen, do nothing
+ST7735.c(986): error:  #20: identifier "_height" is undefined
+    if((w > _width) || (h > _height)){    // image is too wide for the screen, do nothing
+ST7735.c(993): error:  #20: identifier "_width" is undefined
+    if((x + w - 1) >= _width){            // image exceeds right of screen
+BufferFunctions.c: 20 warnings, 30 errors
+".\ADCSWTrigger.axf" - 32 Error(s), 32 Warning(s).
+Target not created
